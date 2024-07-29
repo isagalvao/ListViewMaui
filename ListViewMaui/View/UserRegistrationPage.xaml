@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ListViewMaui.View.UserRegistrationPage"
+             Title="UserRegistrationPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:ListViewMaui.ViewModel"
+             x:DataType="local:UserRegistrationPageViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="White">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid RowDefinitions="120, 7*">
+                <StackLayout VerticalOptions="Center"
+                             HeightRequest="150"
+                             Orientation="Horizontal"
+                             BackgroundColor="#363062" 
+                             Grid.Row="0">
+                    <!--Title-->
+                    <Label Text="Cadastro" 
+                           FontSize="25" 
+                           HorizontalOptions="Start" 
+                           VerticalOptions="Center" 
+                           TextColor="White" 
+                           Margin="20,0,0,0"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1"
+                   Margin="0,-20,0,0">
+                    <Frame BackgroundColor="WhiteSmoke" BorderColor="Gray" Margin="20,0,20,10">
+                        <StackLayout Padding="10" Spacing="10">
+                            <Label Text="Nome" 
+                                   TextColor="Black" 
+                                   FontSize="Medium"/>
+                            <Frame HeightRequest="40"
+                                   BackgroundColor="WhiteSmoke"
+                                   CornerRadius="5">
+                                <Entry Placeholder="Digite seu Nome"
+                                       Visual="Material" 
+                                       FontSize="16"
+                                       Text="{Binding Name}"
+                                       HeightRequest="60"
+                                       HorizontalOptions="FillAndExpand" 
+                                       VerticalOptions="FillAndExpand"   
+                                       ClearButtonVisibility="WhileEditing" />
+                            </Frame>
+                            <Label Text="Telefone" 
+                                   TextColor="Black" 
+                                   FontSize="Medium"/>
+                            <Frame HeightRequest="40"
+                                   BackgroundColor="WhiteSmoke"
+                                   CornerRadius="5">
+                                <Entry Placeholder="(00) 00000-0000"
+                                       Visual="Material" 
+                                       Text="{Binding Phone}"
+                                       FontSize="16"
+                                       HeightRequest="60"
+                                       HorizontalOptions="FillAndExpand" 
+                                       VerticalOptions="FillAndExpand"   
+                                       Keyboard="Numeric" 
+                                       ClearButtonVisibility="WhileEditing" >
+                                    <Entry.Behaviors>
+                                        <toolkit:MaskedBehavior Mask="(XX) XXXXX-XXXX" />
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </Frame>
+                            <Label Text="CPF" 
+                                   TextColor="Black" 
+                                   FontSize="Medium"/>
+                            <Frame  HeightRequest="40"
+                                    BackgroundColor="WhiteSmoke"
+                                    CornerRadius="5">
+                                <Entry Placeholder="123.456.789-10"
+                                       Visual="Material" 
+                                       FontSize="16"
+                                       Text="{Binding Cpf}"
+                                       HeightRequest="60"
+                                       HorizontalOptions="FillAndExpand" 
+                                       VerticalOptions="FillAndExpand"   
+                                       Keyboard="Numeric" 
+                                       ClearButtonVisibility="WhileEditing">
+                                    <Entry.Behaviors>
+                                        <toolkit:MaskedBehavior Mask="XXX.XXX.XXX-XX" />
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </Frame>
+                        </StackLayout>
+                    </Frame>
+                    <StackLayout Margin="20,20,20,0" Spacing="10">
+
+                        <Button Text="Cancelar"
+                                HeightRequest="50"
+                                FontAttributes="Bold"
+                                TextColor="WhiteSmoke"
+                                BorderColor="WhiteSmoke"
+                                BackgroundColor="#C40C0C"
+                                Command="{Binding CancelCommand}"
+                                HorizontalOptions="FillAndExpand" 
+                                VerticalOptions="EndAndExpand"/>
+                        <Button Text="Salvar"
+                                HeightRequest="50"
+                                FontAttributes="Bold"
+                                BackgroundColor="#1A5319"
+                                Command="{Binding SaveCommand}"
+                                HorizontalOptions="FillAndExpand" 
+                                VerticalOptions="EndAndExpand"/>
+                    </StackLayout>
+
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
