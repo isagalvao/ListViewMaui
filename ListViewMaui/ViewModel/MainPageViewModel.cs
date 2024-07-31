@@ -1,55 +1,74 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using ListViewMaui.Models;
+using ListViewMaui.Services;
 using ListViewMaui.Services.Business;
+using ListViewMaui.View;
 using System.Collections.ObjectModel;
 
 namespace ListViewMaui.ViewModel
 {
     public partial class MainPageViewModel : ViewModelBase
     {
-        private readonly ListUserBusiness _userBusiness;
+        private readonly ListUserRepository _listUserRepository;
+        private readonly Navigate _navigate;
+        public ObservableCollection<User> UserList { get; set; }
+        public bool IsListEmpty { get; set; }
 
-        private ObservableCollection<User> _userList;
-        public ObservableCollection<User> UserList
+        private User _selectedItem;
+        public User SelectedItem
         {
-            get => _userList;
-            set => SetProperty(ref _userList, value);
+            get => _selectedItem;
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged();
+            }
         }
 
-        [ObservableProperty]
-        private bool isListEmpty;
-
-        public MainPageViewModel(ListUserBusiness userBusiness)
+        public MainPageViewModel(ListUserRepository listUserRepository, Navigate navigate)
         {
-            _userBusiness = userBusiness;
-            UserList = new ObservableCollection<User>(_userBusiness.Users);
-            _userBusiness.Users.CollectionChanged += (s, e) => LoadUsers();
+            _navigate = navigate;
+            _listUserRepository = listUserRepository;
+
+            UserList = new ObservableCollection<User>();
 
             LoadUsers();
+            CheckIfListIsEmpty();
         }
 
-        private void LoadUsers()
+        public void LoadUsers()
         {
-            UserList.Clear(); 
+            SelectedItem = null;
+            UserList.Clear();
 
-            foreach (var user in _userBusiness.Users)
+            foreach (var user in _listUserRepository.GetAll())
             {
                 UserList.Add(user);
             }
 
+            OnPropertyChanged(nameof(UserList));
             CheckIfListIsEmpty();
         }
 
         [RelayCommand]
         public async Task Add()
         {
-            await Shell.Current.GoToAsync("//UserRegistrationPage");
+            await _navigate.UserRegistrationPage();
         }
 
-        private void CheckIfListIsEmpty()
+        [RelayCommand]
+        public async Task EditUser(User user)
         {
-            IsListEmpty = !UserList.Any();
+            if (user != null)
+            {
+                await Shell.Current.GoToAsync($"{nameof(DetailsPage)}?Id={user.Id}");
+            }
+        }
+
+        public void CheckIfListIsEmpty()
+        {
+            IsListEmpty = UserList.Count <= 0;
+            OnPropertyChanged(nameof(IsListEmpty));
         }
     }
 }

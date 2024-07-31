@@ -1,46 +1,53 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using ListViewMaui;
 using ListViewMaui.Models;
+using ListViewMaui.Services;
 using ListViewMaui.Services.Business;
-using ListViewMaui.ViewModel;
 
 namespace ListViewMaui.ViewModel
 {
     public partial class UserRegistrationPageViewModel : ViewModelBase
     {
-        [ObservableProperty]
-        private string name;
+        private readonly ListUserRepository _listUserRepository;
+        private readonly Navigate _navigate;
 
         [ObservableProperty]
-        private string phone;
+        private string _name;
 
         [ObservableProperty]
-        private string cpf;
+        private string _phone;
 
-        public UserRegistrationPageViewModel()
+        [ObservableProperty]
+        private string _cpf;
+
+        public UserRegistrationPageViewModel(ListUserRepository listUserRepository, Navigate navigate)
         {
+            _navigate = navigate;
+            _listUserRepository = listUserRepository;
         }
 
         [RelayCommand]
         public async Task Save()
         {
-            var user = new User { Name = Name, Phone = Phone, CPF = Cpf };
-
-            if (!await ListUserBusiness.Instance.ValidateUserAsync(user))
+            var newUser = new User
             {
-                return;
+                Name = Name,
+                Phone = Phone,
+                CPF = Cpf
+            };
+
+            if (await _listUserRepository.ValidateUserAsync(newUser))
+            {
+                _listUserRepository.AddUser(newUser);
+
+                await App.Current.MainPage.DisplayAlert("Sucesso", "Dados salvos com sucesso!", "OK");
+
+                Name = string.Empty;
+                Phone = string.Empty;
+                Cpf = string.Empty;
+
+                await _navigate.MainPage();
             }
-
-            ListUserBusiness.Instance.AddUser(user);
-
-            await App.Current.MainPage.DisplayAlert("Sucesso", "Dados salvos com sucesso!", "OK");
-
-            Name = string.Empty;
-            Phone = string.Empty;
-            Cpf = string.Empty;
-
-            await Shell.Current.GoToAsync("//MainPage");
         }
 
         [RelayCommand]
@@ -53,7 +60,7 @@ namespace ListViewMaui.ViewModel
                 Phone = string.Empty;
                 Cpf = string.Empty;
 
-                await Shell.Current.GoToAsync("//MainPage");
+                await _navigate.MainPage();
             }
         }
     }

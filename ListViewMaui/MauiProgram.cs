@@ -2,9 +2,10 @@
 using epj.RouteGenerator;
 using ListViewMaui.ViewModel;
 using ListViewMaui.View;
-using ListViewMaui.Services.Business;
 using ListViewMaui.Models;
 using CommunityToolkit.Maui;
+using ListViewMaui.Services;
+using ListViewMaui.Services.Business;
 
 namespace ListViewMaui
 {
@@ -25,22 +26,21 @@ namespace ListViewMaui
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
         }
         private static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
         {
-            builder.Services.AddSingleton<ListUserBusiness>();
-            builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<User>();
-            builder.Services.AddSingleton<UserRegistrationPageViewModel>();
+            builder.Services.AddSingleton<Navigate>();
+            builder.Services.AddSingleton<ListUserRepository>();
+            builder.Services.AddSingleton<IShellNavigationService, ShellNavigationService>();
 
-            // Registrar a página
-            builder.Services.AddTransient<UserListPage>();
-            builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<UserRegistrationPage>();
+            builder.Services.AddTransient<MainPage, MainPageViewModel>();
+            builder.Services.AddTransient<DetailsPage, DetailsPageViewModel>();
+            builder.Services.AddTransient<UserRegistrationPage, UserRegistrationPageViewModel>();
 
             return builder;
         }

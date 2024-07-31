@@ -7,7 +7,7 @@ namespace ListViewMaui
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(Routes.UserListPage, typeof(UserListPage));
+            Routing.RegisterRoute(Routes.DetailsPage, typeof(DetailsPage));
             Routing.RegisterRoute(Routes.UserRegistrationPage, typeof(UserRegistrationPage));
         }
     }

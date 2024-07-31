@@ -26,7 +26,7 @@
                 </StackLayout>
                 <StackLayout Grid.Row="1"
                    Margin="0,-20,0,0">
-                    <Frame BackgroundColor="WhiteSmoke" BorderColor="Gray" Margin="20,0,20,10">
+                    <Frame BackgroundColor="WhiteSmoke" BorderColor="DarkGray" Margin="20,0,20,10">
                         <StackLayout Padding="10" Spacing="10">
                             <Label Text="Nome" 
                                    TextColor="Black" 
@@ -86,7 +86,13 @@
                         </StackLayout>
                     </Frame>
                     <StackLayout Margin="20,20,20,0" Spacing="10">
-
+                        <Button Text="Salvar"
+                                 HeightRequest="50"
+                                 FontAttributes="Bold"
+                                 BackgroundColor="#1A5319"
+                                 Command="{Binding SaveCommand}"
+                                 HorizontalOptions="FillAndExpand" 
+                                 VerticalOptions="EndAndExpand"/>
                         <Button Text="Cancelar"
                                 HeightRequest="50"
                                 FontAttributes="Bold"
@@ -96,15 +102,7 @@
                                 Command="{Binding CancelCommand}"
                                 HorizontalOptions="FillAndExpand" 
                                 VerticalOptions="EndAndExpand"/>
-                        <Button Text="Salvar"
-                                HeightRequest="50"
-                                FontAttributes="Bold"
-                                BackgroundColor="#1A5319"
-                                Command="{Binding SaveCommand}"
-                                HorizontalOptions="FillAndExpand" 
-                                VerticalOptions="EndAndExpand"/>
                     </StackLayout>
-
                 </StackLayout>
             </Grid>
         </ScrollView>

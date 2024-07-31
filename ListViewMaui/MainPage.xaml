@@ -3,17 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ListViewMaui.MainPage"
              xmlns:local="clr-namespace:ListViewMaui.ViewModel"
-             x:DataType="local:MainPageViewModel"
              xmlns:models="clr-namespace:ListViewMaui.Models"
              Shell.NavBarIsVisible="False"
              BackgroundColor="WhiteSmoke">
     <ContentPage.Content>
         <ScrollView>
-            <Grid RowDefinitions="120, 6*, 1*">
+            <StackLayout>
                 <StackLayout VerticalOptions="Center"
                              HeightRequest="200"
                              Orientation="Horizontal"
-                             BackgroundColor="Black" 
+                             BackgroundColor="#1A5319" 
                              Grid.Row="0">
                     <!--Title-->
                     <Frame Margin="30" CornerRadius="30"
@@ -34,52 +33,56 @@
                            TextColor="White" 
                            Margin="0,20,0,10"/>
                 </StackLayout>
-                <StackLayout Grid.Row="1"
-                     Margin="0,0,0,0">
+                <StackLayout  Margin="0,0,0,0">
                     <Label Text="Nenhum contato encontrado"
-                           TextColor="Black"
+                           TextColor="Red"
                            FontSize="15"
-                           IsVisible="{Binding IsListEmpty}"
+                           Margin="0,0,0,0"
                            HorizontalOptions="Center"
-                           VerticalOptions="CenterAndExpand"/>
+                           HorizontalTextAlignment="Center"
+                           IsVisible="{Binding IsListEmpty, Mode=TwoWay}"/>
                     <!-- List-->
-                    <ListView ItemsSource="{Binding UserList}"
-                              IsVisible="{Binding IsListEmpty, Converter={StaticResource InverseBooleanConverter}}">
-                        <ListView.ItemTemplate>
+                    <CollectionView x:Name="UsersCollection" ItemsSource="{Binding UserList}"
+                                    SelectionMode="Single"
+                                    SelectedItem="{Binding SelectedItem}"
+                                    SelectionChangedCommand="{Binding EditUserCommand}" 
+                                    SelectionChangedCommandParameter="{Binding SelectedItem, Mode=TwoWay, Source={x:Reference UsersCollection}}">
+                        <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout>
-                                    <Frame BackgroundColor="#1A5319" HeightRequest="100" Margin="20,0,20,10">
-                                        <Grid>
-                                            <Grid RowDefinitions="AUTO, AUTO"
-                                                  ColumnDefinitions="* , *"
-                                                  ColumnSpacing="10"
-                                                  RowSpacing="5">
-                                                <!--Name-->
-                                                <Label TextColor="White" 
-                                                       Text="Nome"
-                                                       Grid.Row="0"
-                                                       Grid.Column="0"/>
-                                                <Label Grid.Row="1" 
-                                                       Grid.Column="0" 
-                                                       Text="{Binding Name}"
-                                                       VerticalOptions="CenterAndExpand"
-                                                       TextColor="White"/>
-                                                <!--Phone-->
-                                                <Label Text="Telefone"
-                                                       Grid.Column="1"
-                                                       TextColor="White"
-                                                       Grid.Row="0"/>
-                                                <Label Grid.Row="1"
-                                                       Text="{Binding Phone}"
-                                                       Grid.Column="1" 
-                                                       TextColor="White"/>
-                                            </Grid>
-                                        </Grid>
-                                    </Frame>
-                                </StackLayout>
+                                <Grid BackgroundColor="Black">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!--Name-->
+                                    <Label TextColor="White" 
+                                               Text="Nome"
+                                               Grid.Row="0"
+                                               Grid.Column="0"/>
+                                    <Label Grid.Row="1" 
+                                               Grid.Column="0" 
+                                               Text="{Binding Name}"
+                                               VerticalOptions="CenterAndExpand"
+                                               TextColor="White"/>
+                                    <!--Phone-->
+                                    <Label Text="Telefone"
+                                               Grid.Column="1"
+                                               TextColor="White"
+                                               Grid.Row="0"/>
+                                    <Label Grid.Row="1"
+                                               Text="{Binding Phone}"
+                                               Grid.Column="1" 
+                                               TextColor="White"/>
+                                </Grid>
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" VerticalOptions="End" Spacing="10">
                     <Button Text="Adicionar Usuário"
                             Command="{Binding AddCommand}"
                             Margin="10,0,10,0"
@@ -93,15 +96,14 @@
                 <StackLayout Margin="0,0,0,-2" 
                              VerticalOptions="EndAndExpand" 
                              Grid.Row="2"
-                             BackgroundColor="Black"
+                             BackgroundColor="#1A5319"
                              HorizontalOptions="FillAndExpand" >
                     <Image HeightRequest="60"
-                           Source="footer.png"
                            Margin="0,0,0,-2" 
                            HorizontalOptions="CenterAndExpand" 
                            VerticalOptions="EndAndExpand"/>
                 </StackLayout>
-            </Grid>
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>
