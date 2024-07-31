@@ -41,7 +41,7 @@ Aplicativo desenvolvido com .NET MAUI para gerenciar uma lista de contatos. A ap
    ```bash
    git clone https://github.com/isagalvao/ListViewMaui
    cd ContatoApp
-2. **🏃 Execute o Projeto:**:
+2. **🏃 Execute o Projeto**:
    ```bash
     dotnet build
     dotnet run
