@@ -60,6 +60,10 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\background.png" />
+	  <None Remove="Resources\Images\EmptyList.png" />
+	  <None Remove="Resources\Images\List.png" />
+	  <None Remove="Resources\Images\Register.png" />
+	  <None Remove="Resources\Images\Update.png" />
 	</ItemGroup>
 
 	<ItemGroup>
