@@ -59,7 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\footer.png" />
+	  <None Remove="Resources\Images\background.png" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -7,103 +7,80 @@
              Shell.NavBarIsVisible="False"
              BackgroundColor="WhiteSmoke">
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout>
-                <StackLayout VerticalOptions="Center"
-                             HeightRequest="200"
-                             Orientation="Horizontal"
-                             BackgroundColor="#1A5319" 
-                             Grid.Row="0">
-                    <!--Title-->
-                    <Frame Margin="30" CornerRadius="30"
-                           BorderColor="#00FF43"
-                           HeightRequest="60"
-                           WidthRequest="60"
-                           BackgroundColor="Black" >
-                        <Image Scale="2"
-                               Source="footer.png"
-                               Margin="0,0,0,-2" 
-                               HorizontalOptions="CenterAndExpand" 
-                               VerticalOptions="CenterAndExpand"/>
-                    </Frame>
+        <Grid>
+            <!-- Background Image -->
+            <Image Source="background.png" Aspect="AspectFill"
+                   Grid.Row="0" Grid.Column="0"
+                   Grid.RowSpan="2" Grid.ColumnSpan="2" />
+            <ScrollView>
+                <Grid RowDefinitions="7*, *">
+                    <StackLayout>
                     <Label Text="Lista de Contatos" 
-                           FontSize="20" 
-                           HorizontalOptions="Start" 
-                           VerticalOptions="Center" 
-                           TextColor="White" 
-                           Margin="0,20,0,10"/>
-                </StackLayout>
-                <StackLayout  Margin="0,0,0,0">
+                           FontSize="30" 
+                           Margin="0,30,0,0"
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Start" 
+                           FontFamily="Bold"
+                           TextColor="#679da0"/>
                     <Label Text="Nenhum contato encontrado"
-                           TextColor="Red"
-                           FontSize="15"
-                           Margin="0,0,0,0"
+                           TextColor="#679da0"
+                           FontSize="Medium"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center"
                            IsVisible="{Binding IsListEmpty, Mode=TwoWay}"/>
-                    <!-- List-->
-                    <CollectionView x:Name="UsersCollection" ItemsSource="{Binding UserList}"
+                    </StackLayout>
+                    <!--List-->
+                    <CollectionView x:Name="UsersCollection" Margin="0,30,0,0" HeightRequest="550" Grid.Row="0" ItemsSource="{Binding UserList}"
                                     SelectionMode="Single"
+                                    HorizontalOptions="CenterAndExpand"
+                                    VerticalOptions="FillAndExpand"
                                     SelectedItem="{Binding SelectedItem}"
                                     SelectionChangedCommand="{Binding EditUserCommand}" 
                                     SelectionChangedCommandParameter="{Binding SelectedItem, Mode=TwoWay, Source={x:Reference UsersCollection}}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Grid BackgroundColor="Black">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                <Grid RowSpacing="10"
+                                      BackgroundColor="#62a9ad"
+                                      RowDefinitions="Auto, Auto"
+                                      ColumnSpacing="0" 
+                                      Margin="10"
+                                      Padding="10,10,0,10"
+                                      ColumnDefinitions="*,*">
                                     <!--Name-->
                                     <Label TextColor="White" 
-                                               Text="Nome"
-                                               Grid.Row="0"
-                                               Grid.Column="0"/>
+                                           Text="Nome"
+                                           Grid.Row="0"
+                                           Grid.Column="0"/>
                                     <Label Grid.Row="1" 
-                                               Grid.Column="0" 
-                                               Text="{Binding Name}"
-                                               VerticalOptions="CenterAndExpand"
-                                               TextColor="White"/>
+                                           Grid.Column="0" 
+                                           Text="{Binding Name}"
+                                           TextColor="White"/>
                                     <!--Phone-->
                                     <Label Text="Telefone"
-                                               Grid.Column="1"
-                                               TextColor="White"
-                                               Grid.Row="0"/>
+                                           Grid.Column="1"
+                                           TextColor="White"
+                                           Grid.Row="0"/>
                                     <Label Grid.Row="1"
-                                               Text="{Binding Phone}"
-                                               Grid.Column="1" 
-                                               TextColor="White"/>
+                                           Text="{Binding Phone}"
+                                           Grid.Column="1" 
+                                           TextColor="White"/>
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                </StackLayout>
-                <StackLayout Orientation="Vertical" VerticalOptions="End" Spacing="10">
-                    <Button Text="Adicionar Usuário"
-                            Command="{Binding AddCommand}"
-                            Margin="10,0,10,0"
-                            HeightRequest="50"
-                            FontAttributes="Bold"
-                            BackgroundColor="#1A5319"
-                            HorizontalOptions="FillAndExpand" 
-                            VerticalOptions="EndAndExpand"/>
-                </StackLayout>
-                <!--Image-->
-                <StackLayout Margin="0,0,0,-2" 
-                             VerticalOptions="EndAndExpand" 
-                             Grid.Row="2"
-                             BackgroundColor="#1A5319"
-                             HorizontalOptions="FillAndExpand" >
-                    <Image HeightRequest="60"
-                           Margin="0,0,0,-2" 
-                           HorizontalOptions="CenterAndExpand" 
-                           VerticalOptions="EndAndExpand"/>
-                </StackLayout>
-            </StackLayout>
-        </ScrollView>
+                    <!--Buttons-->
+                    <StackLayout Grid.Row="2">
+                        <Button Text="Adicionar Usuário"
+                                Command="{Binding AddCommand}"
+                                HeightRequest="50"
+                                Margin="10,0,10,70"
+                                FontAttributes="Bold"
+                                BackgroundColor="#edbea4"
+                                HorizontalOptions="FillAndExpand" 
+                                VerticalOptions="End"/>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
