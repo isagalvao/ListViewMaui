@@ -45,3 +45,15 @@ Aplicativo desenvolvido com .NET MAUI para gerenciar uma lista de contatos. A ap
    ```bash
     dotnet build
     dotnet run
+   
+## 🖼️ Imagens do Projeto
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+
+  <img src="\ListViewMaui/Resources/Images/EmptyList.png" alt="Tela de Lista Vazia" width="45%">
+  <img src="\ListViewMaui/Resources/Images/Register.png" alt="Tela de Registro" width="45%">
+
+  <img src="\ListViewMaui/Resources/Images/List.png" alt="Tela de Lista" width="45%">
+  <img src="\ListViewMaui/Resources/Images/Update.png" alt="Tela de Atualização" width="45%">
+
+</div>
