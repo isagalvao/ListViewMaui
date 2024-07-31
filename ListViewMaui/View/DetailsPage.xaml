@@ -7,17 +7,16 @@
              Title="DetailsPage">
     <ContentPage.Content>
         <Grid>
-            <!-- Background Image -->
+            <!--Background-->
             <Image Source="background.png" Aspect="AspectFill"
                    Grid.Row="0" Grid.Column="0"
                    Grid.RowSpan="2" Grid.ColumnSpan="2" />
-            <!-- Content Layout -->
             <ScrollView>
                 <Grid RowDefinitions="120, 7*">
-                    <!-- Form Section -->
+                    <!--Form-->
                     <StackLayout Grid.Row="1"
                                  Margin="20,0,20,10">
-                        <Label Text="Informações do Usuário" 
+                        <Label Text="Informações do Contato" 
                                FontSize="Title" 
                                FontFamily="Bold"
                                HorizontalOptions="Center" 
@@ -32,7 +31,7 @@
                                TextColor="#679da0" 
                                Margin="0,-10,0,0"/>
                         <StackLayout Padding="10" Spacing="10">
-                            <!-- Entry Fields -->
+                            <!--Name-->
                             <Label Text="Nome" 
                                    TextColor="#62a9ad" 
                                    FontSize="Medium"/>
@@ -48,6 +47,7 @@
                                        VerticalOptions="FillAndExpand"   
                                        ClearButtonVisibility="WhileEditing"/>
                             </Frame>
+                            <!--Phone-->
                             <Label Text="Telefone" 
                                    TextColor="#62a9ad" 
                                    FontSize="Medium"/>
@@ -68,6 +68,7 @@
                                     </Entry.Behaviors>
                                 </Entry>
                             </Frame>
+                            <!--CPF-->
                             <Label Text="CPF" 
                                    TextColor="#62a9ad" 
                                    FontSize="Medium"/>

@@ -44,7 +44,7 @@ namespace ListViewMaui.ViewModel
         [RelayCommand]
         public async Task Delete()
         {
-            bool confirm = await App.Current.MainPage.DisplayAlert("Cancelar", "Deseja deletar o Usário?", "Sim", "Não");
+            bool confirm = await App.Current.MainPage.DisplayAlert("Deletar", "Deseja deletar o Contato?", "Sim", "Não");
 
             if (confirm)
             {

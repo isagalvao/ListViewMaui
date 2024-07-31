@@ -30,10 +30,13 @@
                            IsVisible="{Binding IsListEmpty, Mode=TwoWay}"/>
                     </StackLayout>
                     <!--List-->
-                    <CollectionView x:Name="UsersCollection" Margin="0,30,0,0" HeightRequest="550" Grid.Row="0" ItemsSource="{Binding UserList}"
+                    <CollectionView x:Name="UsersCollection" Margin="0,30,0,0" 
+                                    HeightRequest="550" 
+                                    Grid.Row="0" 
                                     SelectionMode="Single"
                                     HorizontalOptions="CenterAndExpand"
                                     VerticalOptions="FillAndExpand"
+                                    ItemsSource="{Binding UserList}"
                                     SelectedItem="{Binding SelectedItem}"
                                     SelectionChangedCommand="{Binding EditUserCommand}" 
                                     SelectionChangedCommandParameter="{Binding SelectedItem, Mode=TwoWay, Source={x:Reference UsersCollection}}">
@@ -70,7 +73,7 @@
                     </CollectionView>
                     <!--Buttons-->
                     <StackLayout Grid.Row="2">
-                        <Button Text="Adicionar Usuário"
+                        <Button Text="Adicionar Contato"
                                 Command="{Binding AddCommand}"
                                 HeightRequest="50"
                                 Margin="10,0,10,70"
