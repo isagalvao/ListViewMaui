@@ -1,35 +1,65 @@
 ﻿using ListViewMaui.Models;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ListViewMaui.Services.Business
 {
-    public partial class ListUserBusiness
+    public partial class ListUserRepository : IListUserRepository
     {
-        private static ListUserBusiness _instance;
-        public static ListUserBusiness Instance => _instance ??= new ListUserBusiness();
+        private static ListUserRepository _instance;
+        public static ListUserRepository Instance => _instance ??= new ListUserRepository();
 
         public ObservableCollection<User> Users { get; } = new ObservableCollection<User>();
 
-        public ListUserBusiness()
+        public ListUserRepository()
         {
-            Users.CollectionChanged += (s, e) => OnUsersChanged(e);
-        }
 
-        public event EventHandler<NotifyCollectionChangedEventArgs> UsersChanged;
-
-        private void OnUsersChanged(NotifyCollectionChangedEventArgs e)
-        {
-            UsersChanged?.Invoke(this, e);
         }
 
         public void AddUser(User user)
         {
             if (user != null)
             {
+                user.Id = Users.Count + 1;
                 Users.Add(user);
+            }
+        }
+
+        public List<User> GetAll()
+        {
+            try
+            {
+                return Users.ToList();
+            }
+            catch (Exception)
+            {
+                return new List<User>();
+            }
+        }
+
+        public User GetById(int id)
+        {
+            return Users.Where(x => x.Id == id).First();
+        }
+
+        public void DeleteUser(int id)
+        {
+            var existingUser = Users.FirstOrDefault(u => u.Id == id);
+
+            if (existingUser != null)
+            {
+                Users.Remove(existingUser);
+            }
+        }
+
+        public void UpdateUser(User user)
+        {
+            var index = Users.IndexOf(Users.FirstOrDefault(u => u.Id == user.Id));
+            if (index >= 0)
+            {
+                Users[index] = user;
             }
         }
 
